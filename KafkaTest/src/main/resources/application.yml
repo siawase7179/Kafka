@@ -1,0 +1,10 @@
+server.port: 9001
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    topics: kafka-test
+
+logging:
+  level:
+    com.example.resource.KafkaConsumer: DEBUG
