@@ -27,6 +27,8 @@
     - 메시지 lag이 많을 경우 max.poll.records만큼 처리 하기 전에 max.poll.interval.ms 시간을 넘기게 되면 commit 불가
     - 다른 consumer에게 rebalancing될 때 이전 offset부터 처리
 
+-------------
+
 # Kafka 성능 테스트
 
 ![image](https://github.com/siawase7179/Kafka/assets/152139618/fcc4c2d9-3e38-465a-8898-f423f77a0150)
