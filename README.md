@@ -1,3 +1,32 @@
+# Kafka
+- 메타정보가 모두 디스크에 저장 되기 때문에 장애복구가 우수
+- 파티션 분산 처리 용이(파티션별 별도의 offset을 가지기 때문에 순서보장 X)
+- 파티션 확장 용이(단, 컨슈머가 파티션 수만큼 있어야 한다)
+
+## Consumer Group
+- Consumer Group의 consumer는 하나의 파티션에서만 데이터 처리 가능
+- 1개 파티션은 컨슈머 그룹 내의 최대 1개 인스턴스까지만 접근이 가능
+- 파티션을 처리하던 consumer가 장애시 Consumer Group의 다른 consumer에게 마지막 offset부터 처리 가능
+
+### **Rebalancing**
+
+> 하나의 consumer가 장애시 다른 consumer에게 마지막 offset부터 처리 할 수 있게 broker가 Rebalance해 준다
+> 
+
+**발생 원인**
+
+- 컨슈머의 생성 / 삭제
+- 시간안에 Poll 요청 실패
+    - 컨슈머는 “max.poll.records(default : 500)” 설정의 개수만큼 메세지를 처리한 뒤 Poll 요청을 보내게 됩니다. 하지만, 메세지들의 처리 시간이 늦어져서 “max.poll.interval.ms” 설정 시간을 넘기게 된다면 컨슈머에 문제가 있다고 판단하여 리밸런싱이 일어납니다.
+- 컨슈머 문제 발생
+
+**리스크**
+
+1. 컨슈머 처리중단(리밸런싱이 완료되기 전에는 컨슈머가 동작하지 않습니다.)
+2. 메세지 중복 컨슈밍
+    - 메시지 lag이 많을 경우 max.poll.records만큼 처리 하기 전에 max.poll.interval.ms 시간을 넘기게 되면 commit 불가
+    - 다른 consumer에게 rebalancing될 때 이전 offset부터 처리
+
 # Kafka 성능 테스트
 
 ![image](https://github.com/siawase7179/Kafka/assets/152139618/fcc4c2d9-3e38-465a-8898-f423f77a0150)
