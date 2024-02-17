@@ -9,7 +9,7 @@
 - 파티션을 처리하던 consumer가 장애시 Consumer Group의 다른 consumer에게 마지막 offset부터 처리 가능
 
 ### **Rebalancing**
-
+> [!NOTE]
 > 하나의 consumer가 장애시 다른 consumer에게 마지막 offset부터 처리 할 수 있게 broker가 Rebalance해 준다
 > 
 
@@ -17,7 +17,9 @@
 
 - 컨슈머의 생성 / 삭제
 - 시간안에 Poll 요청 실패
-    - 컨슈머는 “max.poll.records(default : 500)” 설정의 개수만큼 메세지를 처리한 뒤 Poll 요청을 보내게 됩니다. 하지만, 메세지들의 처리 시간이 늦어져서 “max.poll.interval.ms” 설정 시간을 넘기게 된다면 컨슈머에 문제가 있다고 판단하여 리밸런싱이 일어납니다.
+    - 컨슈머는 “max.poll.records(default : 500)” 설정의 개수만큼 메세지를 처리한 뒤 Poll 요청을 보내게 됩니다.
+
+      하지만, 메세지들의 처리 시간이 늦어져서 “max.poll.interval.ms” 설정 시간을 넘기게 된다면 컨슈머에 문제가 있다고 판단하여 리밸런싱이 일어납니다.
 - 컨슈머 문제 발생
 
 **리스크**
@@ -40,7 +42,7 @@
 
 Producer 1개 App, Counser 1개 App을 의미
 
-> [!note]
+> [!NOTE]
 > Producer 성능이 초당 publish 건수가 10만건 이상 나왔으나, Consumer의 속도가 Producer를 따라가지 못했다.
 
 -------------
@@ -51,7 +53,7 @@ Producer 1개 App, Counser 1개 App을 의미
 
 ![image](https://github.com/siawase7179/Kafka/assets/152139618/5630d023-d769-46c3-9f50-41c414bd5e3c)
 
-> [!note]
+> [!NOTE]
 > 동일한 Consumer 그룹 내 Consumer가 추가되면 각 Consumer가 가지는 Partition의 소유권이 바뀌게 된다.
 >
 > 이렇게 소유권이 이동하는 것을 리밸런스 rebalance 라고 한다.
