@@ -1,10 +1,10 @@
-server.port: 9001
-
 spring:
+  main:
+    web-application-type: none
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 39.117.41.75:9092
     topics: kafka-test
 
 logging:
   level:
-    com.example.resource.KafkaConsumer: DEBUG
+    com.example.resource.KafkaConsumer: INFO

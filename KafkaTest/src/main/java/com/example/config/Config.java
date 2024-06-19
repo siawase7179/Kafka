@@ -16,11 +16,16 @@ public class Config {
         return new KafkaConfig();
     }
 
-
-    @Getter @Setter
-    public
-    class KafkaConfig{
+	@Getter @Setter
+    public static class KafkaConfig{
         private String bootstrapServers;
         private String topics;
+        private Sasl sasl = new Sasl();
+
+        @Getter @Setter
+        public static class Sasl {
+            private boolean enabled = false;
+            private String jaasConfig;
+        }
     }
 }

@@ -1,22 +1,29 @@
 package com.example.resource;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.listener.AcknowledgingMessageListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.log4j.Log4j2;
+
 @Profile(value = "consumer")
 @Component
+@Log4j2
 public class KafkaConsumer  implements AcknowledgingMessageListener<String, String> {
-    private final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumer.class);
-
     @Override
     public void onMessage(ConsumerRecord<String, String> data, Acknowledgment acknowledgment) {
         // TODO Auto-generated method stub
-        LOGGER.info("(deque) {}", data.value());
-       
+        try{
+            if(data.value().equals("q")){
+                throw new Exception();
+            }
+            log.info(data.value());
+            acknowledgment.acknowledge();
+        }catch(Exception e){
+            log.error("error", e);
+            throw new RuntimeException(e);
+        }
     }
 } 
